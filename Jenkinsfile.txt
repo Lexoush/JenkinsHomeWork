@@ -1,1 +1,67 @@
 # Jenkinsfile Pipeline
+pipeline {
+    agent any
+
+    parameters {
+        choice(
+            name: 'LANGUAGE',
+            choices: ['JAVA', 'PYTHON', 'C', 'ALL'],
+            description: 'Select language'
+        )
+    }
+
+    stages {
+
+        stage('Print Selection') {
+            steps {
+                echo "Selected Language: ${params.LANGUAGE}"
+            }
+        }
+
+        stage('Display File') {
+            steps {
+                script {
+
+                    if (params.LANGUAGE == 'JAVA') {
+                        sh 'cat HelloJAVA.java'
+                    }
+
+                    if (params.LANGUAGE == 'PYTHON') {
+                        sh 'cat HelloPython.py'
+                    }
+
+                    if (params.LANGUAGE == 'C') {
+                        sh 'cat HelloC.c'
+                    }
+
+                    if (params.LANGUAGE == 'ALL') {
+                        sh '''
+                        cat HelloJAVA.java
+                        cat HelloPython.py
+                        cat HelloC.c
+                        '''
+                    }
+                }
+            }
+        }
+
+    }
+
+    post {
+        always {
+            emailext(
+                to: 'alexis@advstg.com',
+                subject: 'Jenkins Homework Result',
+                body: """
+                Build Finished.
+
+                Selected Language:
+                ${params.LANGUAGE}
+
+                Build Result:
+                ${currentBuild.currentResult}
+                """
+            )
+        }
+    }
+}
