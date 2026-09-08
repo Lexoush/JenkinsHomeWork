@@ -47,21 +47,4 @@ pipeline {
 
     }
 
-    post {
-        always {
-            emailext(
-                to: 'alexis@advstg.com',
-                subject: 'Jenkins Homework Result',
-                body: """
-                Build Finished.
-
-                Selected Language:
-                ${params.LANGUAGE}
-
-                Build Result:
-                ${currentBuild.currentResult}
-                """
-            )
-        }
     }
-}
