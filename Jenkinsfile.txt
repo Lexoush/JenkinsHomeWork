@@ -1,6 +1,6 @@
 # Jenkinsfile Pipeline
 pipeline {
-    agent any
+    agent master
 
     parameters {
         choice(
