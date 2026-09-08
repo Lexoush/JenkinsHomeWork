@@ -1,4 +1,3 @@
-# Jenkinsfile Pipeline
 pipeline {
     agent {label 'main'}
 
