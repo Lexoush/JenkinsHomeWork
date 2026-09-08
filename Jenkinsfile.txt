@@ -1,6 +1,6 @@
 # Jenkinsfile Pipeline
 pipeline {
-    agent {label 'master'}
+    agent {label 'main'}
 
     parameters {
         choice(
