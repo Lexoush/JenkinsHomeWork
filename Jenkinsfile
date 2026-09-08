@@ -1,22 +1,18 @@
 pipeline {
     agent {label 'master'}
-
     parameters {
         choice(
             name: 'LANGUAGE',
-            choices: ['JAVA', 'PYTHON', 'C', 'ALL'],
+            choices: ['ALL', 'JAVA', 'PYTHON', 'C'],
             description: 'Select language'
         )
     }
-
     stages {
-
         stage('Print Selection') {
             steps {
                 echo "Selected Language: ${params.LANGUAGE}"
             }
         }
-
         stage('Display File') {
             steps {
                 script {
@@ -35,15 +31,13 @@ pipeline {
 
                     if (params.LANGUAGE == 'ALL') {
                         sh '''
-                        cat HelloJAVA.java
-                        cat HelloPython.py
-                        cat HelloC.c
+                            cat HelloJAVA.java
+                            cat HelloPython.py
+                            cat HelloC.c
                         '''
                     }
                 }
             }
         }
-
     }
-
-    }
+}
